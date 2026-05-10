@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        AI Placement Prediction System
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            🎓 AI Placement Prediction
+        </h1>
+
+        <p class="subtitle">
+            Smart Career Guidance & Skill Gap Analyzer
+        </p>
+
+        <!-- ========================= -->
+        <!-- FORM SECTION -->
+        <!-- ========================= -->
+
+        <form action="/predict"
+              method="POST">
+
+            <!-- CGPA -->
+
+            <div class="input-group">
+
+                <label>
+                    CGPA
+                </label>
+
+                <input type="number"
+                       step="0.01"
+                       name="cgpa"
+                       placeholder="Enter CGPA"
+                       required>
+
+            </div>
+
+            <!-- Coding Skills -->
+
+            <div class="input-group">
+
+                <label>
+                    Coding Skills (0-10)
+                </label>
+
+                <input type="number"
+                       name="coding_skills"
+                       placeholder="Enter score"
+                       required>
+
+            </div>
+
+            <!-- DSA -->
+
+            <div class="input-group">
+
+                <label>
+                    DSA Score (0-10)
+                </label>
+
+                <input type="number"
+                       name="dsa_score"
+                       placeholder="Enter score"
+                       required>
+
+            </div>
+
+            <!-- Aptitude -->
+
+            <div class="input-group">
+
+                <label>
+                    Aptitude Score (0-10)
+                </label>
+
+                <input type="number"
+                       name="aptitude_score"
+                       placeholder="Enter score"
+                       required>
+
+            </div>
+
+            <!-- Communication -->
+
+            <div class="input-group">
+
+                <label>
+                    Communication Skills (0-10)
+                </label>
+
+                <input type="number"
+                       name="communication_skills"
+                       placeholder="Enter score"
+                       required>
+
+            </div>
+
+            <!-- Internships -->
+
+            <div class="input-group">
+
+                <label>
+                    Internships
+                </label>
+
+                <input type="number"
+                       name="internships"
+                       placeholder="Enter number"
+                       required>
+
+            </div>
+
+            <!-- Projects -->
+
+            <div class="input-group">
+
+                <label>
+                    Projects Count
+                </label>
+
+                <input type="number"
+                       name="projects_count"
+                       placeholder="Enter number"
+                       required>
+
+            </div>
+
+            <!-- Certifications -->
+
+            <div class="input-group">
+
+                <label>
+                    Certifications
+                </label>
+
+                <input type="number"
+                       name="certifications"
+                       placeholder="Enter number"
+                       required>
+
+            </div>
+
+            <!-- Hackathons -->
+
+            <div class="input-group">
+
+                <label>
+                    Hackathons
+                </label>
+
+                <input type="number"
+                       name="hackathons"
+                       placeholder="Enter number"
+                       required>
+
+            </div>
+
+            <!-- Open Source -->
+
+            <div class="input-group">
+
+                <label>
+                    Open Source Contributions
+                </label>
+
+                <input type="number"
+                       name="open_source_contributions"
+                       placeholder="Enter number"
+                       required>
+
+            </div>
+
+            <!-- Role -->
+
+            <div class="input-group">
+
+                <label>
+                    Target Role
+                </label>
+
+                <select name="target_role">
+
+                    <option>
+                        Data Analyst
+                    </option>
+
+                    <option>
+                        Machine Learning Engineer
+                    </option>
+
+                    <option>
+                        Backend Developer
+                    </option>
+
+                    <option>
+                        Frontend Developer
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Skills -->
+
+            <div class="input-group">
+
+                <label>
+                    Your Skills
+                </label>
+
+                <input type="text"
+                       name="student_skills"
+                       placeholder=
+                       "Python, SQL, Excel">
+
+            </div>
+
+            <!-- Button -->
+
+            <button type="submit">
+
+                Predict Placement
+
+            </button>
+
+        </form>
+
+        <!-- ========================= -->
+        <!-- RESULT SECTION -->
+        <!-- ========================= -->
+
+        {% if prediction_text %}
+
+        <div class="result-box">
+
+            <h2>
+                Prediction Result
+            </h2>
+
+            <!-- Prediction Card -->
+
+            <div class="prediction-card">
+
+                <h3>
+                    {{ prediction_text }}
+                </h3>
+
+                <!-- Probability Bar -->
+
+                <div class="progress-container">
+
+                    <div class="progress-bar"
+                         style=
+                         "width: {{ probability }}%;">
+                    
+
+                        {{ probability }}%
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Skill Gap -->
+
+            <div class="skills-section">
+
+                <h3>
+                    Missing Skills For
+                    {{ target_role }}
+                </h3>
+
+                <div class="skills-container">
+
+                    {% for skill in missing_skills %}
+
+                    <span class="skill-pill">
+
+                        {{ skill }}
+
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
